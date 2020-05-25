@@ -1,3 +1,27 @@
+<script>
+function myFunction(e) {
+  alert('dg');
+  console.log(e);
+   $.ajax({
+        type: "POST",
+        url: "controller/addToCart.php",
+        data: {'f_ID':e,'action':'remove'},
+        dataType: "json",
+        success: function(result){
+            if (result.status=='success') {
+            $('#modal-body').html(result.msg);
+            $("#myModal").modal("show");
+            location.reload();
+            
+        }
+        else{
+             $('#msg').addClass('alert alert-danger offset4 span4').html(result.msg).fadeIn('slow');
+            setTimeout(function() { $("#msg").fadeOut('slow'); }, 4000);
+        }
+        }
+        });
+}
+</script>
 <?php include 'header.php';
  include 'controller/function.php';
 
@@ -10,8 +34,21 @@ if (!isset($_SESSION['user'])) {
 }
 if (isset($_GET['F_ID']) && isset($_GET['quantity'])) {
    $obj = new DB_con();
-   $data = $obj->get_particular_food_item($_GET['F_ID']);
+   $result = $obj->get_particular_food_item($_GET['F_ID']);
    $total = $_GET['quantity']*$data['price'];
+}
+else if (isset($_SESSION['cart'])) {
+  $total =0;
+  $obj = new DB_con();
+  foreach ($_SESSION['cart'] as $key => $value) {
+    $result[$key] = $obj->get_particular_food_item($value['f_ID']);
+     $datas = $value['quantity'];
+   array_push($result[$key],$datas);
+   
+  }
+  // echo "<pre>";
+  // print_r($result);
+  // die;
 }
 else{
   header("location:shop.php");
@@ -49,25 +86,36 @@ else{
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(<?php echo $data['images_path']?>);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3><?php echo $data['name']; ?></h3>
-						        </td>
-						        
-						        <td class="price">Rs.<?php echo $data['price'];?></td>
-						        
-						        <td class="quantity">
-						        	<!-- <div class="input-group mb-3"> -->
-					             	<?php echo $_GET['quantity']; ?>
-					          	<!-- </div> -->
-					          </td>
-						        
-						        <td class="total">Rs.<?php echo $total; ?></td>
-						      </tr>
+                  <?php
+                  foreach ($result as $key => $data) {
+                    $total += $data['price']*$data[4];
+                    ?>
+                     <tr class="text-center">
+                    <td class="product-remove">
+                      <button class="close" onclick="myFunction(<?php echo $data['F_ID'] ?>);" data-set = "<?php echo $data['F_ID'] ?>" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </td>
+                    
+                    <td class="image-prod"><div class="img" style="background-image:url(<?php echo $data['images_path']?>);"></div></td>
+                    
+                    <td class="product-name">
+                      <h3><?php echo $data['name']; ?></h3>
+                    </td>
+                    
+                    <td class="price">Rs.<?php echo $data['price'];?></td>
+                    
+                    <td class="quantity">
+                      <!-- <div class="input-group mb-3"> -->
+                        <?php echo $data['4']; ?>
+                      <!-- </div> -->
+                    </td>
+                    
+                    <td class="total">Rs.<?php echo $data['price']*$data[4]; ?></td>
+                  </tr>
+                  <?php }
+                  ?>
+						     
 						    </tbody>
 						  </table>
 					  </div>
@@ -79,7 +127,7 @@ else{
     					<h3>Cart Totals</h3>
     					<p class="d-flex">
     						<span>Subtotal</span>
-    						<span>Rs.<?php echo $total; ?></span>
+    						<span>Rs.<?php echo $total ?></span>
     					</p>
     					<p class="d-flex">
     						<span>Delivery</span>
@@ -99,6 +147,23 @@ else{
     		</div>
 			</div>
 		</section>
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" id ="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
     <?php include 'footer.php'?>
     <script type="text/javascript">
       $(document).ready(function(e){
@@ -129,5 +194,13 @@ else{
         });
 
       });
+
+         $(".product-remove").click(function(e){
+          //e.preventDefault();
+          alert('hi')
+
+      });
+      
+
       });
     </script>

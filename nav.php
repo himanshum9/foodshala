@@ -42,7 +42,8 @@
                 <?php
                 }
                 ?>
-              <!-- <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li> -->
+                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><i class="material-icons">shopping_cart</i></a></li>
+
 
             </ul>
           </div>

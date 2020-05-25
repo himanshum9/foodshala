@@ -100,7 +100,7 @@ public function get_all_food_items($params){
 }
 
 public function get_particular_food_item($params){
-	$sql="SELECT price,images_path,name,R_ID from food WHERE F_ID=?";
+	$sql="SELECT F_ID,price,images_path,name,R_ID from food WHERE F_ID=?";
 	$stmt =$this->dbh->prepare($sql);
 	$stmt->execute([$params]);
 	$result = $stmt->fetch();

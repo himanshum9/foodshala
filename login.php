@@ -33,7 +33,7 @@
           </div>
 
           <div class="col-md-6 d-flex">
-            <img class="img-fluid" src="images/Chocolate_Hazelnut_Truffle.jpg" alt="Colorlib Template">
+            <img class="img-fluid" src="images/eiliv-sonas-aceron-ZuIDLSz3XLg-unsplash.jpg" alt="Colorlib Template">
           	<!-- <div id="map" class="bg-white"></div> -->
           </div>
         </div>
