@@ -65,7 +65,7 @@
                 <hr>
                 <p class="bottom-area d-flex">
                   <a href = "javascript:;"><button type="button" style="margin-top:5px;" data-set = "<?php echo $data['F_ID'] ?>" class="orderNow btn btn-success">Order Now</button></a>
-                   <a href = "javascript:;" onclick = ""><button class="addToCart btn peach-gradient" type="button" name="add" data-set = "<?php echo $data['F_ID'] ?>" style="margin-top:5px;margin-left: 40px;" class="btn btn-info"><?php echo  array_search($data['F_ID'], array_column($_SESSION['cart'], 'f_ID')) !== FALSE ? "Item Added":"Add to Cart" ?></button></a>
+                   <a href = "javascript:;" onclick = ""><button class="addToCart btn peach-gradient" type="button" name="add" data-set = "<?php echo $data['F_ID'] ?>" style="margin-top:5px;margin-left: 40px;" class="btn btn-info"><?php echo  (isset($_SESSION['cart']) && array_search($data['F_ID'], array_column($_SESSION['cart'], 'f_ID')) !== FALSE) ? "Item Added":"Add to Cart" ?></button></a>
                   </p>
                 <?php } ?>
     						
@@ -74,6 +74,7 @@
     			</div>
         <?php }?>
     		</div>
+        <!-- <input type="hidden" name="count" id = 'count' value="<?php echo $_SESSION[''] ?>"> -->
         <div class="row mt-5">
            <div class="col text-center">
             <div class="block-27">
@@ -127,9 +128,9 @@
             $('#modal-body').html(result.msg);
             $("#myModal").modal("show");
             const button = e.target.closest('.addToCart');
-            console.log(button);
             button.innerHTML = "Item Added";
-            
+            const count = document.querySelector('#aaa');
+            count.innerHTML = result.count;
         }
         else{
               $('#modal-body').html(result.msg);
@@ -158,8 +159,7 @@
             
         }
         else{
-              $('#modal-body').html(result.msg);
-            $("#myModal").modal("show");
+              alert('something went wrong!!')
         }
         }
         });

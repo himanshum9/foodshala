@@ -47,7 +47,7 @@ if (!isset($_SESSION['user'])) {
 //    //$total = $_GET['quantity']*$result['price'];
 // }
 else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-  //die;
+
   $total =0;
   $obj = new DB_con();
   foreach ($_SESSION['cart'] as $key => $value) {
@@ -56,6 +56,9 @@ else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
    array_push($result[$key],$datas);
    
   }
+  // echo "<pre>";
+  // print_r($result);
+  // die;
 }
 else{
   //header("location:shop.php");
@@ -148,11 +151,11 @@ else{
                     
                     <td class="quantity">
                       <!-- <div class="input-group mb-3"> -->
-                        <?php echo $data['4']; ?>
+                        <?php echo $data['5']; ?>
                       <!-- </div> -->
                     </td>
                     
-                    <td class="total">Rs.<?php echo $data['price']*$data[4]; ?></td>
+                    <td class="total">Rs.<?php echo $data['price']*$data['5']; ?></td>
                   </tr>
                   <?php }
                   ?>
@@ -181,7 +184,7 @@ else{
     					</p>
               <!-- <input type="hidden" name="total" value="<?php echo $total; ?>"> -->
     				</div>
-    				<p class="text-center"><a href="" id="bill" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+    				<p class="text-center"><a href="#" id="bill" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
             <div id="msg" class="alert " style="display: none;">
               </div>
     			</div>
@@ -210,14 +213,13 @@ else{
       $(document).ready(function(e){
         $("#bill").click(function(e){
           e.preventDefault();
-          var rest_id = "<?php echo $data['R_ID']; ?>";
           var total = "<?php echo $total; ?>";
-          var f_ID = "<?php echo $_GET['F_ID']; ?>";
-          var quantity = "<?php echo $_GET['quantity'];?>";
+          var ordersArray = <?php echo json_encode($result); ?>;
+          console.log(ordersArray);
           $.ajax({
         type: "POST",
         url: "controller/orders.php",
-        data: {'rest_id':rest_id,'total':total,'f_ID':f_ID,'quantity':quantity},
+        data: {'ordersArray':ordersArray,'total':total},
         dataType: "json",
         success: function(result){
             if (result.status=='success') {
@@ -235,7 +237,5 @@ else{
         });
 
       });
-      
-
       });
     </script>

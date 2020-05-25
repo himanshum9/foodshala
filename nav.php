@@ -42,7 +42,7 @@
                 <?php
                 }
                 ?>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><i class="material-icons">shopping_cart</i></a></li>
+                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><i class="material-icons">shopping_cart</i><span id="aaa" class="w3-badge"><?php echo isset($_SESSION['cart'])?count($_SESSION['cart']):''; ?></span></a></li>
 
 
             </ul>
