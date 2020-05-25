@@ -64,7 +64,7 @@
                     <h6 class="text-info"style="margin-left: 93px;">Quantity: <input class="abc" type="number" id="quantity" min="1" max="5" name="quantity[]" class="form-control" value="1" style="width: 60px;"> </h6>
                 <hr>
                 <p class="bottom-area d-flex">
-                  <a href = "javascript:;" onclick = "this.href='cart.php?F_ID=<?php echo $data['F_ID']?>&quantity=' + $(this).parent().parent().find('.abc').val()"><button type="button" name="add" style="margin-top:5px;" class="btn btn-success">Order Now</button></a>
+                  <a href = "javascript:;"><button type="button" style="margin-top:5px;" data-set = "<?php echo $data['F_ID'] ?>" class="orderNow btn btn-success">Order Now</button></a>
                    <a href = "javascript:;" onclick = ""><button class="addToCart btn peach-gradient" type="button" name="add" data-set = "<?php echo $data['F_ID'] ?>" style="margin-top:5px;margin-left: 40px;" class="btn btn-info"><?php echo  array_search($data['F_ID'], array_column($_SESSION['cart'], 'f_ID')) !== FALSE ? "Item Added":"Add to Cart" ?></button></a>
                   </p>
                 <?php } ?>
@@ -134,14 +134,35 @@
         else{
               $('#modal-body').html(result.msg);
             $("#myModal").modal("show");
-             const button = e.target.closest('.addToCart');
-            console.log(button);
-            button.innerHTML = "Item Added";
+            //  const button = e.target.closest('.addToCart');
+            // console.log(button);
+            // button.innerHTML = "Item Added";
         }
         }
         });
-
-      
+    });
+    $(".orderNow").click(function(e){
+       e.preventDefault();
+          var f_ID = $(this).attr("data-set");
+          console.log(f_ID);
+          var quantity = $(this).parent().parent().parent().find('.abc').val();
+          console.log(quantity);
+          $.ajax({
+        type: "POST",
+        url: "controller/addToCart.php",
+        data: {'f_ID':f_ID,'quantity':quantity,'action':'order'},
+        dataType: "json",
+        success: function(result){
+            if (result.status=='success') {
+              window.location='cart.php';
+            
+        }
+        else{
+              $('#modal-body').html(result.msg);
+            $("#myModal").modal("show");
+        }
+        }
+        });
     });
   });
   </script>

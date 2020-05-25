@@ -1,7 +1,5 @@
 <script>
 function myFunction(e) {
-  alert('dg');
-  console.log(e);
    $.ajax({
         type: "POST",
         url: "controller/addToCart.php",
@@ -32,12 +30,24 @@ if (isset($_SESSION['restaurant'])) {
 if (!isset($_SESSION['user'])) {
   header('location:login.php');
 }
-if (isset($_GET['F_ID']) && isset($_GET['quantity'])) {
-   $obj = new DB_con();
-   $result = $obj->get_particular_food_item($_GET['F_ID']);
-   $total = $_GET['quantity']*$data['price'];
-}
-else if (isset($_SESSION['cart'])) {
+// if (isset($_GET['F_ID']) && isset($_GET['quantity'])) {
+//    $obj = new DB_con();
+//    $total =0;
+//    $result['a'] = $obj->get_particular_food_item($_GET['F_ID']);
+//    $datas = $_GET['quantity'];
+//    array_push($result['a'],$datas);
+//    // echo "<pre>";
+//    // print_r($result);
+//    // foreach ($result as  $data) {
+//    //   echo "<pre>";
+//    // print_r($data);
+//    // die;
+//    // }
+//    // die;
+//    //$total = $_GET['quantity']*$result['price'];
+// }
+else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+  //die;
   $total =0;
   $obj = new DB_con();
   foreach ($_SESSION['cart'] as $key => $value) {
@@ -46,12 +56,43 @@ else if (isset($_SESSION['cart'])) {
    array_push($result[$key],$datas);
    
   }
-  // echo "<pre>";
-  // print_r($result);
-  // die;
 }
 else{
-  header("location:shop.php");
+  //header("location:shop.php");
+?>
+<div class="container space-2 space-md-2">
+      <div class="w-md-80 w-lg-50 text-center mx-md-auto">
+        <figure id="iconEmptyCart" class="ie-height-111 max-width-15 mx-auto mb-3" style="">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-280 -150 700 300" style="enable-background:new 0 0 10 10;"  class="injected-svg js-svg-injector" data-parent="#iconEmptyCart">
+<style type="text/css">
+  .icon-66-0{fill:none;stroke:#BDC5D1;}
+  .icon-66-1{fill:#377DFF;}
+  .icon-66-2{fill:#FFFFFF;}
+  .icon-66-3{fill:#BDC5D1;}
+</style>
+<polygon class="icon-66-0 fill-none stroke-gray-400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="102.6,89.5 42.8,89.5 17.7,32.1 2.1,32.1 2.1,24.9 22.4,24.9 47.5,82.3 102.6,82.3 "></polygon>
+<path class="icon-66-1 fill-primary" d="M66.7,107.4c0,5.9-4.8,10.8-10.8,10.8s-10.8-4.8-10.8-10.8S50,96.7,55.9,96.7S66.7,101.5,66.7,107.4z"></path>
+<path class="icon-66-1 fill-primary" d="M102.6,107.4c0,5.9-4.8,10.8-10.8,10.8S81,113.4,81,107.4s4.8-10.8,10.8-10.8S102.6,101.5,102.6,107.4z"></path>
+<path class="icon-66-2 fill-white" d="M95.1,107.4c0,1.8-1.5,3.3-3.3,3.3s-3.3-1.5-3.3-3.3s1.5-3.3,3.3-3.3S95.1,105.6,95.1,107.4z"></path>
+<path class="icon-66-2 fill-white" d="M59.2,107.4c0,1.8-1.5,3.3-3.3,3.3c-1.8,0-3.3-1.5-3.3-3.3s1.5-3.3,3.3-3.3C57.7,104.2,59.2,105.6,59.2,107.4z"></path>
+<circle class="icon-66-3 fill-gray-40" opacity=".5" cx="15.1" cy="30.3" r="10.9"></circle>
+<circle class="icon-66-2 fill-white" opacity=".5" cx="91.8" cy="26.9" r="24.9"></circle>
+<path class="icon-66-1 fill-primary" d="M91.8,1.8C77.9,1.8,66.7,13,66.7,26.9S77.9,52,91.8,52s25.1-11.2,25.1-25.1S105.7,1.8,91.8,1.8z M104.5,34.5  l-5.1,5.1L91.8,32l-7.6,7.6l-5.1-5.1l7.6-7.6l-7.6-7.6l5.1-5.1l7.6,7.6l7.6-7.6l5.1,5.1l-7.6,7.6L104.5,34.5z"></path>
+<path class="icon-66-3 fill-gray-400" d="M91.8,60.8c-13.7,0-25.4-8.7-30-20.8c-0.2-0.4-0.6-0.7-1-0.7H39.6c-0.8,0-1.3,0.8-1,1.5L52,74.4  c0.2,0.4,0.6,0.7,1,0.7h48.7c0.5,0,0.9-0.3,1-0.7l6.7-16.7c0.4-1-0.7-1.9-1.6-1.4C103.2,59.2,97.7,60.8,91.8,60.8z"></path>
+</svg>
+        </figure>
+        <div class="mb-5">
+          <h1 class="h3 font-weight-medium">Your cart is currently empty</h1>
+          <p>Before proceed to checkout you must add some Items to your shopping cart.</p>
+        </div>
+        <a class="btn btn-primary btn-pill transition-3d-hover px-5" href="shop.php">Add Items</a>
+        <br>
+      </div>
+    </div>
+    <?php
+     include 'footer.php';
+    die;
+
 }
 
   ?>
@@ -192,12 +233,6 @@ else{
         }
         }
         });
-
-      });
-
-         $(".product-remove").click(function(e){
-          //e.preventDefault();
-          alert('hi')
 
       });
       
