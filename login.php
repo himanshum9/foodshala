@@ -1,5 +1,5 @@
   <?php include 'header.php';?>
-		<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+		<div class="hero-wrap hero-bread" style="background-image: url('images/lauren-mancke-sil2Hx4iupI-unsplash.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 text-center">
@@ -16,6 +16,10 @@
           <div class="col-md-6 order-md-last d-flex">
             <form name="form-login" method="POST" class="bg-white p-5 contact-form">
               <div class="form-group">
+              <h3>Welcome Back ! <br>
+                                Please Sign in now</h3>
+            </div>
+              <div class="form-group">
                 <label class="col-sm-2 col-form-label"  for="name">UserName</label>
                 <input type="text" class="form-control"name="username" placeholder="Username">
               </div>
@@ -28,7 +32,9 @@
               <div class="form-group">
                 <input type="button" id="login" value="Login" class="btn btn-primary py-3 px-5">
               </div>
+               <div style="width: 100%"><iframe width="100%" height="400" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=29.5407388,75.04590259999999&amp;q=Sirsa+(FoodShala)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.maps.ie/draw-radius-circle-map/">Create radius map</a></iframe></div><br />
             </form>
+
           
           </div>
 

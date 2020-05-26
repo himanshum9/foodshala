@@ -1,5 +1,5 @@
   <?php include 'header.php';?>
-		<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+		<div class="hero-wrap hero-bread" style="background-image: url('images/lauren-mancke-sil2Hx4iupI-unsplash.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 text-center">
@@ -60,7 +60,7 @@
           </div>
 
           <div class="col-md-6 d-flex">
-          	<img id="map" class="bg-white" src="images/bg_4.jpg" ></div>
+          	<img id="map" class="bg-white" src="images/heather-barnes-gP1YecpRyD8-unsplash.jpg" ></div>
           </div>
         </div>
       </div>

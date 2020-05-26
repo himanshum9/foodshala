@@ -1,8 +1,10 @@
 <?php include 'function.php';
 session_start();
-if (!isset($_SESSION['user'])) {
-	echo "<script>window.location='login.php';</script>";
-}
+	if (!isset($_SESSION['user'])) {
+		session_destroy();
+		echo json_encode("error");
+		die;
+	}
 if ($_POST['action'] =='add' ) {
 $id = $_POST['f_ID'];
 $items = array(
@@ -50,7 +52,6 @@ if ($_POST['action'] == 'remove') {
 	}
 }
 if ($_POST['action'] == 'order') {
-	//unset($_SESSION['cart']);
 	$id = $_POST['f_ID'];
 	$items = array(
 		$_POST['f_ID'] = array(

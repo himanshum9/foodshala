@@ -25,15 +25,13 @@
   }
   else{
   $datas=$obj->get_all_food_items($params);
-  echo "<pre>";
-  print_r($datas);
   }
 ?>
 		<div class="hero-wrap hero-bread" style="background-image: url('images/deva-williamson-K2ZFPgTjMDI-unsplash.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-0">Get Your Food</h1>
+            <p style="font-size:50px;color: black;">Get Your Food</p>
           </div>
         </div>
       </div>
@@ -49,7 +47,7 @@
     				<div class="product">
     					<img class="img-fluid img-prod hight" src="<?php echo $data['images_path']?>" alt="">
     					<div class="text py-3 px-3">
-                <h3><a href="#"><?php echo $data['foodname']; ?></a></h3>
+                <h3><a href="product.php/<?php echo $data['F_ID']; ?>"><?php echo $data['foodname']; ?></a></h3>
     						<h6><?php echo $data['rest_name']; ?></h6>
                 <h6><a href="#"><?php echo (mb_strlen($data['description'])>$allowedlimit) ? mb_substr($data['description'],0,$allowedlimit)."...." : $data['description'] ?></a></h6>
     						<div class="d-flex">
@@ -132,12 +130,12 @@
             const count = document.querySelector('#aaa');
             count.innerHTML = result.count;
         }
-        else{
-              $('#modal-body').html(result.msg);
+        else if (result.status=='error'){
+            $('#modal-body').html(result.msg);
             $("#myModal").modal("show");
-            //  const button = e.target.closest('.addToCart');
-            // console.log(button);
-            // button.innerHTML = "Item Added";
+        }
+        else{
+           window.location='login.php';
         }
         }
         });
@@ -159,7 +157,7 @@
             
         }
         else{
-              alert('something went wrong!!')
+              window.location='login.php';
         }
         }
         });
