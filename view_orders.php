@@ -11,11 +11,11 @@
     $datas=$obj->get_restaurant_orders($rest_id);
 
 ?>
-		<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+		<div class="hero-wrap hero-bread" style="background-image: url('images/zhang-kaiyv-pJi7nQ2Ni1s-unsplash.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-0 bread">Orders History</h1>
+            <h1 class="mb-0 bread" style="color: white;">Orders History</h1>
           </div>
         </div>
       </div>

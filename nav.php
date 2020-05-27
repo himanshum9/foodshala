@@ -45,13 +45,18 @@
                     <!-- <a class="dropdown-item" href="register_restaurant.php">Restaurant Register</a> -->
                   <!-- </div> -->
                 
-                <a href="logout.php" class="nav-link dropdown-toggle" ><?php echo $_SESSION['user']['username']; ?> (Logout)</a>
+                <a href="logout.php" class="nav-link <?php (!isset($_SESSION['restaurant']) ? 'dropdown-toggle': '') ?>" ><?php echo $_SESSION['user']['username']; ?> (Logout)</a>
+                <?php
+                  if(!isset($_SESSION['restaurant']))
+                  {
+                ?>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                 <a class="dropdown-item" href="myOrders.php">My Orders</a>
               </div>
               <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><i class="material-icons">shopping_cart</i><span id="aaa" class="w3-badge"><?php echo isset($_SESSION['cart'])?count($_SESSION['cart']):''; ?></span></a></li>
                 <?php
                 }
+              }
                 ?>
                 
 

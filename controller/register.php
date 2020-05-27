@@ -2,7 +2,7 @@
 include_once('function.php');
  $obj=new DB_con();
 $params = $_POST;
-if ($params['name']=='' || $params['username'] =='' || $params['phone']='') {
+if ($params['name']=='' || $params['username'] =='' || $params['phone']='' || $params['password']='') {
 	echo json_encode(['code'=>302, 'msg'=>'All Fields are Mendatory']);
 	exit();
 }

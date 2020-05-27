@@ -27,6 +27,7 @@ return $result;
 
 public function register_user($params)
 {
+	$params['password'] = md5($params['password']);
 	$sql="insert into users(Username,Password,user_role) values(?,?,?)";
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute([$params['username'],$params['password'],$params['user_role']]);
@@ -40,6 +41,7 @@ public function register_user($params)
 
 public function register_restaurant($params)
 {
+	$params['password'] = md5($params['password']);
 	$sql="insert into users(Username,Password,user_role) values(?,?,?)";
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute([$params['username'],$params['password'],$params['user_role']]);
@@ -57,7 +59,7 @@ public function register_restaurant($params)
 
 
 public function signin($params)
-{
+{	$params['password'] = md5($params['password']);
 	$sql="SELECT * FROM users WHERE username = ? AND password=?";
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute([$params['username'], $params['password']]);
@@ -92,7 +94,7 @@ public function get_restaurant_food_items($params){
 }
 
 public function get_all_food_items($params){
-	$sql ="SELECT `food`.`F_ID`,`food`.`name` AS `foodname`,`food`.`price`,`food`.`description`,`food`.`R_ID`,`food`.`images_path`,`food`.`status`,`restaurants`.`name` as `rest_name` from `food` left join `restaurants` on `food`.`R_ID` = `restaurants`.`id` LIMIT ".$params["offset"].",".$params["rec_per_page"];
+	$sql ="SELECT `food`.`F_ID`,`food`.`name` AS `foodname`,`food`.`price`,`food`.`description`,`food`.`R_ID`,`food`.`images_path`,`food`.`status`,`restaurants`.`name` as `rest_name` from `food` left join `restaurants` on `food`.`R_ID` = `restaurants`.`id` WHERE `food`.`status`= 1 order By `food`.`F_ID` desc LIMIT ".$params["offset"].",".$params["rec_per_page"];
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute();
 	$result = $stmt->fetchAll();
