@@ -53,12 +53,16 @@ if ($_POST['action'] == 'remove') {
 }
 if ($_POST['action'] == 'order') {
 	$id = $_POST['f_ID'];
+
 	$items = array(
 		$_POST['f_ID'] = array(
 		'f_ID' => $_POST['f_ID'],
 		'quantity' => $_POST['quantity']
 	)
 	);
+	// echo "<pre>";
+	// print_r($items);
+	// die;
 	if (empty($_SESSION["cart"])) {
 	$_SESSION['cart'] = $items;
 	$response['status']='success';

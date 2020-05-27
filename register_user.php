@@ -1,4 +1,9 @@
-  <?php include 'header.php';?>
+  <?php include 'header.php';
+  if (isset($_SESSION)) {
+  header('location:page_403.php');
+  }
+?>
+
 		<div class="hero-wrap hero-bread" style="background-image: url('images/lauren-mancke-sil2Hx4iupI-unsplash.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">

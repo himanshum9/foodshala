@@ -1,4 +1,4 @@
- <footer class="ftco-footer bg-light ftco-section">
+ <footer class="ftco-footer bg-blue ftco-section">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md">
@@ -37,9 +37,9 @@
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">#abc , Something something, Sirsa, Haryana, IN</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">support@foodshala.com</span></a></li>
 	              </ul>
 	            </div>
             </div>

@@ -100,7 +100,7 @@ public function get_all_food_items($params){
 }
 
 public function get_particular_food_item($params){
-	$sql="SELECT F_ID,price,images_path,name,R_ID from food WHERE F_ID=?";
+	$sql="SELECT F_ID,description,price,images_path,name,R_ID from food WHERE F_ID=?";
 	$stmt =$this->dbh->prepare($sql);
 	$stmt->execute([$params]);
 	$result = $stmt->fetch();
@@ -151,14 +151,25 @@ public function get_all_food_items_with_preference($params){
 	return $result;
 }
 public function save_restaurant_data($params){
-	$sql = "UPDATE restaurant SET name=".$params['name'].", contact=".$params['contact'].", email=".$params['email'].",address=".$params['address']." WHERE user_id=".$params['user_id'];
+	// $sql = "UPDATE restaurants SET name= ".$params['name'].", contact= ".$params['contact'].", email= ".$params['email'].",address= ".$params['address']." WHERE user_id= ".$params['user_id'];
+	$sql = "UPDATE restaurants SET name = ? ,contact = ? ,email = ?, address = ?, WHERE user_id = ?";
 	$stmt = $this->dbh->prepare($sql);
-	if($stmt->execute()){
-		return "success";
-	}
-	else{
-		return "error";
-	}
+	$stmt->execute([$params['name'],$params['contact'],$params['email'],$params['address'],$params['user_id']]);
+	echo $stmt->debugDumpParams();
+	// if(){
+	// 	return "success";
+	// }
+	// else{
+	// 	return "error";
+	// }
+}
+
+public function get_users_orders($params){
+	$sql="SELECT `users`.`username`,`orders`.`order_date`,`food`.`name`,`food`.`R_ID`,`restaurants`.`name` as `rest_name`,`food`.`price`,`orders`.`quantity`,`food`.`images_path` as `image` FROM `orders` INNER JOIN `users` on `orders`.`user_id` = `users`.`id` INNER JOIN `food` ON `orders`.`F_ID` = `food`.`F_ID` left join `restaurants` on `food`.`R_ID` = `restaurants`.`id` WHERE `orders`.`user_id` = ? order By `orders`.`order_date` desc";
+	$stmt = $this->dbh->prepare($sql);
+	$stmt->execute([$params]);
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $result;
 }
 
 }

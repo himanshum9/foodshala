@@ -12,7 +12,7 @@
               if(!isset($_SESSION['user']))
                 {
               ?>
-              <li class="nav-item active"><a href="login.php" class="nav-link">Login</a></li>
+              <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
               <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -38,11 +38,22 @@
               if(isset($_SESSION['user']))
                 {
                   ?>
-                <li class="nav-item"><a href="logout.php" class="nav-link"><?php echo $_SESSION['user']['username']; ?> (Logout)</a></li>
+                <li class="nav-item dropdown">
+                  <!-- <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</a> -->
+                  <!-- <div class="dropdown-menu" aria-labelledby="dropdown04"> -->
+                    <!-- <a class="dropdown-item" href="register_user.php">Customer Register</a> -->
+                    <!-- <a class="dropdown-item" href="register_restaurant.php">Restaurant Register</a> -->
+                  <!-- </div> -->
+                
+                <a href="logout.php" class="nav-link dropdown-toggle" ><?php echo $_SESSION['user']['username']; ?> (Logout)</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="myOrders.php">My Orders</a>
+              </div>
+              <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><i class="material-icons">shopping_cart</i><span id="aaa" class="w3-badge"><?php echo isset($_SESSION['cart'])?count($_SESSION['cart']):''; ?></span></a></li>
                 <?php
                 }
                 ?>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><i class="material-icons">shopping_cart</i><span id="aaa" class="w3-badge"><?php echo isset($_SESSION['cart'])?count($_SESSION['cart']):''; ?></span></a></li>
+                
 
 
             </ul>

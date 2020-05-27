@@ -16,12 +16,8 @@
     $user = $obj->get_user_detail_by_id($_SESSION['user']['id']);
     $params['vegan'] = $user['vegan'];
     $datas=$obj->get_all_food_items_with_preference($params);
-    // echo "<pre>";
-    // print_r($datas);
-    // die;
     $total_records = count($datas);
     $total_pages = ceil($total_records[0]/$params['rec_per_page']);
-    // echo $total_records;
   }
   else{
   $datas=$obj->get_all_food_items($params);
@@ -47,9 +43,9 @@
     				<div class="product">
     					<img class="img-fluid img-prod hight" src="<?php echo $data['images_path']?>" alt="">
     					<div class="text py-3 px-3">
-                <h3><a href="product.php/<?php echo $data['F_ID']; ?>"><?php echo $data['foodname']; ?></a></h3>
-    						<h6><?php echo $data['rest_name']; ?></h6>
-                <h6><a href="#"><?php echo (mb_strlen($data['description'])>$allowedlimit) ? mb_substr($data['description'],0,$allowedlimit)."...." : $data['description'] ?></a></h6>
+                <h3><a href="product.php?id=<?php echo $data['F_ID']; ?>"><?php echo $data['foodname']; ?></a></h3>
+    						<h6><b><?php echo $data['rest_name']; ?></b></h6>
+                <h6><a href="product.php?id=<?php echo $data['F_ID']; ?>"><?php echo (mb_strlen($data['description'])>$allowedlimit) ? mb_substr($data['description'],0,$allowedlimit)."..." : $data['description'] ?></a></h6>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span class="price-sale">Rs <?php echo $data['price']; ?></span></p>
@@ -59,10 +55,30 @@
                 
                   <?php if(isset($_SESSION['restaurant']) && $_SESSION['user']['user_role']==2){?>
                   <?php } else{ ?>
-                    <h6 class="text-info"style="margin-left: 93px;">Quantity: <input class="abc" type="number" id="quantity" min="1" max="5" name="quantity[]" class="form-control" value="1" style="width: 60px;"> </h6>
+                    <div class="row mt-4">
+                      <div class="col-md-6">
+                        <div class="form-group d-flex">
+                        </div>
+                      </div>
+                      <div class="w-100"></div>
+                        <div class="input-group col-md-8 d-flex">
+                          <span class="input-group-btn mr-2">
+                              <button type="button" class="quantity-left-minus btn btn-minus"  data-type="minus" data-field="">
+                               <i class="fa fa-arrow-left"></i>
+                              </button>
+                          </span>
+                          <input type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="5" disabled></input>
+                          <span class="input-group-btn ml-2">
+                              <button type="button" class="quantity-right-plus btn btn-plus" data-type="plus" data-field="">
+                                 <i class="fas fa-chevron-left fa fa-arrow-right"></i>
+                             </button>
+                          </span>
+                        </div>
+                    </div>
+                    <!-- <h6 class="text-info"style="margin-left: 93px;">Quantity: <input class="abc" type="number" id="quantity" min="1" max="5" name="quantity[]" class="form-control" value="1" style="width: 60px;"> </h6> -->
                 <hr>
                 <p class="bottom-area d-flex">
-                  <a href = "javascript:;"><button type="button" style="margin-top:5px;" data-set = "<?php echo $data['F_ID'] ?>" class="orderNow btn btn-success">Order Now</button></a>
+                  <a href = "javascript:;"><button type="button" style="margin-top:5px;" data-set = "<?php echo $data['F_ID'] ?>" class="orderNow btn btn-info">Order Now</button></a>
                    <a href = "javascript:;" onclick = ""><button class="addToCart btn peach-gradient" type="button" name="add" data-set = "<?php echo $data['F_ID'] ?>" style="margin-top:5px;margin-left: 40px;" class="btn btn-info"><?php echo  (isset($_SESSION['cart']) && array_search($data['F_ID'], array_column($_SESSION['cart'], 'f_ID')) !== FALSE) ? "Item Added":"Add to Cart" ?></button></a>
                   </p>
                 <?php } ?>
@@ -110,11 +126,19 @@
       <script>
 
   $(document).ready(function(){
+    $('.btn-plus, .btn-minus').on('click', function(e) {
+    const isNegative = $(e.target).closest('.btn-minus').is('.btn-minus');
+    const input = $(e.target).closest('.input-group').find('input');
+    console.log(input[0]);
+    if (input.is('input')) {
+    input[0][isNegative ? 'stepDown' : 'stepUp']()
+    }
+    });
     $(".addToCart").click(function(e){
        e.preventDefault();
           var f_ID = $(this).attr("data-set");
           console.log(f_ID);
-          var quantity = $(this).parent().parent().parent().find('.abc').val();
+          var quantity = $(this).parent().parent().parent().find('.input-number').val();
           console.log(quantity);
           $.ajax({
         type: "POST",
@@ -144,7 +168,7 @@
        e.preventDefault();
           var f_ID = $(this).attr("data-set");
           console.log(f_ID);
-          var quantity = $(this).parent().parent().parent().find('.abc').val();
+          var quantity = $(this).parent().parent().parent().find('.input-number').val();
           console.log(quantity);
           $.ajax({
         type: "POST",

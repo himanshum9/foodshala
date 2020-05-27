@@ -11,11 +11,12 @@ $obj = new DB_con();
 $data = $obj->get_restaurant_detail_by_id($_SESSION['user']['id']);
 ?>
 
-		<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+		<div class="hero-wrap hero-bread" style="background-image: url('images/zhang-kaiyv-pJi7nQ2Ni1s-unsplash.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-0 bread">Resraurant Profile</h1>
+            <h1 class="mb-0 bread" style="color: white;"><b>Resraurant Profile</b></h1>
+            <!-- <p style="font-size:50px;">Your Orders</p> -->
           </div>
         </div>
       </div>
@@ -25,7 +26,7 @@ $data = $obj->get_restaurant_detail_by_id($_SESSION['user']['id']);
       <div class="row">
     <div class="col-md-3" style="text-align: center;margin-top: 100px;">
 
-      <div class="list-group">
+      <div class="list-group bmd-list-group-sm">
         <a href="restaurant_view.php" class="list-group-item active">My Restaurant</a>
         <a href="restaurant_items.php" class="list-group-item ">View Food Items</a>
         <a href="add_food.php" class="list-group-item ">Add Food Items</a>

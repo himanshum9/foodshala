@@ -13,7 +13,7 @@ function myFunction(e) {
             
         }
         else{
-             $('#msg').addClass('alert alert-danger offset4 span4').html(result.msg).fadeIn('slow');
+             $('#msg').addClass('alert alert-danger offset4 span4').html("Something is not Right!!").fadeIn('slow');
             setTimeout(function() { $("#msg").fadeOut('slow'); }, 4000);
         }
         }
@@ -30,22 +30,7 @@ if (isset($_SESSION['restaurant'])) {
 if (!isset($_SESSION['user'])) {
   header('location:login.php');
 }
-// if (isset($_GET['F_ID']) && isset($_GET['quantity'])) {
-//    $obj = new DB_con();
-//    $total =0;
-//    $result['a'] = $obj->get_particular_food_item($_GET['F_ID']);
-//    $datas = $_GET['quantity'];
-//    array_push($result['a'],$datas);
-//    // echo "<pre>";
-//    // print_r($result);
-//    // foreach ($result as  $data) {
-//    //   echo "<pre>";
-//    // print_r($data);
-//    // die;
-//    // }
-//    // die;
-//    //$total = $_GET['quantity']*$result['price'];
-// }
+
 else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
   $total =0;
@@ -56,9 +41,6 @@ else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
    array_push($result[$key],$datas);
    
   }
-  // echo "<pre>";
-  // print_r($result);
-  // die;
 }
 else{
   //header("location:shop.php");
@@ -131,7 +113,7 @@ else{
 						    <tbody>
                   <?php
                   foreach ($result as $key => $data) {
-                    $total += $data['price']*$data[4];
+                    $total += $data['price']*$data[6];
                     ?>
                      <tr class="text-center">
                     <td class="product-remove">
@@ -150,11 +132,11 @@ else{
                     
                     <td class="quantity">
                       <!-- <div class="input-group mb-3"> -->
-                        <?php echo $data['5']; ?>
+                        <?php echo $data[6]; ?>
                       <!-- </div> -->
                     </td>
                     
-                    <td class="total">Rs.<?php echo $data['price']*$data['5']; ?></td>
+                    <td class="total">Rs.<?php echo $data['price']*$data[6]; ?></td>
                   </tr>
                   <?php }
                   ?>
@@ -225,7 +207,7 @@ else{
             $('#msg').addClass('alert alert-success offset4 span4').html(result.msg).fadeIn('slow');
             setTimeout(function() { $("#msg").fadeOut('slow'); }, 2000);
             setTimeout(function() {
-            window.location = 'index.php';
+            window.location = 'myOrders.php';
              }, 2000);
         }
         else{
