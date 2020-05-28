@@ -3,7 +3,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 text-center">
-            <h1 class="mb-0 bread">Login</h1>
+            <h1 class="mb-0 bread"><b>Login</b></h1>
             <!-- <p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span></p> -->
           </div>
         </div>

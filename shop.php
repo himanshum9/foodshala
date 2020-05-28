@@ -10,25 +10,20 @@
   $allowedlimit = 25;
   $params['rec_per_page']=$no_of_records_per_page = 12;
   $params['offset'] =$offset = ($page-1) * $no_of_records_per_page;
-  $total_records = $obj->count_all_items();
-  // echo "<pre>";
-  // print_r($total_records);
-  // die;
-  $total_pages = ceil($total_records[0]/$params['rec_per_page']);
-  if (isset($_SESSION['user'])) {
+  
+  if (isset($_SESSION['user']) && !isset($_SESSION['restaurant'])) {
+
     $user = $obj->get_user_detail_by_id($_SESSION['user']['id']);
     $params['vegan'] = $user['vegan'];
+     $total_records = $obj->count_all_items($params['vegan']);
     $datas=$obj->get_all_food_items_with_preference($params);
-    $total_records = count($datas);
-   
     $total_pages = ceil($total_records[0]/$params['rec_per_page']);
   }
   else{
   $datas=$obj->get_all_food_items($params);
   $total_records = count($datas);
-  // echo "<pre>";
-  //   print_r($datas);
-  //   die('hiiii');
+  $total_pages = ceil($total_records[0]/$params['rec_per_page']);
+  
   }
 ?>
 		<div class="hero-wrap hero-bread" style="background-image: url('images/deva-williamson-K2ZFPgTjMDI-unsplash.jpg');">

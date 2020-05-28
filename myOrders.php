@@ -1,13 +1,12 @@
 <?php include 'header.php'?>
 <?php include 'controller/function.php'?>
 <?php
+
+if ($_SESSION['user']['user_role']!=1) {
+    header('location:page_403.php');
+    }
 $obj = new DB_con();
-// echo "<pre>";
-// print_r($_SESSION);
-// die;
 $datas = $obj->get_users_orders($_SESSION['user']['id']);
-// echo "<pre>";
-// print_r($datas);
 ?>
 <div class="hero-wrap hero-bread" style="background-image: url('images/carli-jeen-UWRqlJcDCXA-unsplash.jpg');">
   <div class="container">

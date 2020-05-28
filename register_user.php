@@ -1,5 +1,5 @@
   <?php include 'header.php';
-  if (isset($_SESSION)) {
+  if (isset($_SESSION['user'])) {
   header('location:page_403.php');
   }
 ?>
@@ -9,7 +9,6 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 text-center">
             <h1 class="mb-0 bread">Register As User</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span></p>
           </div>
         </div>
       </div>
@@ -20,10 +19,6 @@
         <div class="row block-9">
           <div class="col-md-6 order-md-last d-flex">
             <form id="form-register" name="form-register" method="POST" class="bg-white p-5 contact-form">
-              <div class="form-group">
-                <label class="col-form-label"  for="name">Full Name</label><span class="required">*</span>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name">
-              </div>
               <div class="form-group">
                 <label class="col-form-label"  for="name">UserName</label><span class="required">*</span>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
@@ -89,21 +84,23 @@
         var vegan = $("#vegan").val();
        
         var number = $("#phone").val();
-         if (password!=confirmpassword) {
-          $('#msg').addClass('alert alert-danger offset4 span4').html("Passwords did'nt match!!").fadeIn('slow');
+         
+        if(name==''||email==''||password==''||confirmpassword==''||number==''||vegan=='')
+        {
+         $('#msg').addClass('alert alert-danger offset4 span4').html("Please Fill the required fields!!").fadeIn('slow');
             setTimeout(function() { $("#msg").fadeOut('slow'); }, 4000);
             return false;
         }
-        if(name==''||email==''||password==''||confirmpassword==''||number==''||vegan=='')
-        {
-         $('#msg').addClass('alert alert-danger offset4 span4').html("Please Fill the required fields").fadeIn('slow');
+        else if (password!=confirmpassword) {
+          $('#msg').addClass('alert alert-danger offset4 span4').html("Passwords didn't match!!").fadeIn('slow');
             setTimeout(function() { $("#msg").fadeOut('slow'); }, 4000);
             return false;
-            
         }
         else
         {
           var data = $('form').serializeArray();
+          // console.log(data);
+          // return false;
         $.ajax({
         type: "POST",
         url: "controller/register.php",

@@ -27,9 +27,9 @@
 
       <div class="list-group">
         <a href="restaurant_view.php" class="list-group-item ">My Restaurant</a>
-        <a href="restaurant_items.php" class="list-group-item ">View Food Items</a>
+        <a href="restaurant_items.php" class="list-group-item ">View/Edit Food Items</a>
         <a href="add_food.php" class="list-group-item ">Add Food Items</a>
-        <a href="view_orders.php" class="list-group-item active">View Orders</a>
+        <a href="view_orders.php" class="list-group-item active" style = "background-color:#053238;">View Orders</a>
       </div>
     </div>
 

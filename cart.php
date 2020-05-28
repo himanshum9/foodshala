@@ -196,7 +196,6 @@ else{
           e.preventDefault();
           var total = "<?php echo $total; ?>";
           var ordersArray = <?php echo json_encode($result); ?>;
-          console.log(ordersArray);
           $.ajax({
         type: "POST",
         url: "controller/orders.php",

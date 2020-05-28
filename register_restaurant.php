@@ -1,4 +1,8 @@
-  <?php include 'header.php';?>
+  <?php include 'header.php';
+ if (isset($_SESSION['user'])) {
+  header('location:page_403.php');
+  }
+  ?>
 		<div class="hero-wrap hero-bread" style="background-image: url('images/lauren-mancke-sil2Hx4iupI-unsplash.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -14,10 +18,6 @@
         <div class="row block-9">
           <div class="col-md-6 order-md-last d-flex">
             <form id="form-register" name="form-register" method="POST" class="bg-white p-5 contact-form">
-              <div class="form-group">
-                <label class="col-form-label"  for="name">Full Name</label><span class="required">*</span>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name">
-              </div>
               <div class="form-group">
                 <label class="col-form-label"  for="name">UserName</label><span class="required">*</span>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">

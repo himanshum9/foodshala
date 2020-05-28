@@ -2,7 +2,7 @@
 define('DB_SERVER','localhost');// Your hostname
 define('DB_USER','root'); // Databse username
 define('DB_PASS' ,''); // Database Password
-define('DB_NAME', 'foodorder');// Database name
+define('DB_NAME', 'foodshala');// Database name
 
 class DB_con
 {
@@ -26,15 +26,17 @@ return $result;
 }
 
 public function register_user($params)
-{
+{	
+
 	$params['password'] = md5($params['password']);
 	$sql="insert into users(Username,Password,user_role) values(?,?,?)";
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute([$params['username'],$params['password'],$params['user_role']]);
 	//$stmt->close();
-	$sql="insert into user_info(email,contact,address,vegan) values(?,?,?,?)";
+	$id = $this->dbh->lastInsertId();
+	$sql="insert into user_info(user_id,email,contact,address,vegan) values(?,?,?,?,?)";
 	$stmt = $this->dbh->prepare($sql);
-	$stmt->execute([$params['email'],$params['contact'],$params['address'],$params['vegan']]);
+	$stmt->execute([$id,$params['email'],$params['contact'],$params['address'],$params['vegan']]);
 	//$stmt->close();
 	return "true";
 }
@@ -94,7 +96,7 @@ public function get_restaurant_food_items($params){
 }
 
 public function get_all_food_items($params){
-	$sql ="SELECT `food`.`F_ID`,`food`.`name` AS `foodname`,`food`.`price`,`food`.`description`,`food`.`R_ID`,`food`.`images_path`,`food`.`status`,`restaurants`.`name` as `rest_name` from `food` left join `restaurants` on `food`.`R_ID` = `restaurants`.`id` WHERE `food`.`status`= 1 order By `food`.`F_ID` desc LIMIT ".$params["offset"].",".$params["rec_per_page"];
+	$sql ="SELECT `food`.`F_ID`,`food`.`name` AS `foodname`,`food`.`price`,`food`.`description`,`food`.`R_ID`,`food`.`images_path`,`food`.`status`,`restaurants`.`name` as `rest_name` from `food` left join `restaurants` on `food`.`R_ID` = `restaurants`.`id` WHERE `food`.`status`= 1 order By `food`.`F_ID` DESC LIMIT ".$params["offset"].",".$params["rec_per_page"];
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute();
 	$result = $stmt->fetchAll();
@@ -129,8 +131,15 @@ public function insert_order_details($params){
 
 }
 
-public function count_all_items(){
+public function count_all_items($params){
+	
 	$sql ="SELECT count(*) FROM food WHERE `status`=?";
+	if ($params != 3) {
+		$sql .= " AND vegan = ".$params;
+	}
+	// echo "<pre>";
+	// print_r($sql);
+	// die;
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute([1]);
 	$result = $stmt->fetch();
@@ -145,8 +154,15 @@ public function get_user_detail_by_id($params){
 }
 
 public function get_all_food_items_with_preference($params){
-	$sql ="SELECT `food`.`F_ID`,`food`.`name` AS `foodname`,`food`.`price`,`food`.`description`,`food`.`R_ID`,`food`.`images_path`,`food`.`status`,`restaurants`.`name` as `rest_name` from `food` left join `restaurants` on `food`.`R_ID` = `restaurants`.`id` WHERE vegan = ".$params['vegan']." LIMIT ".$params["offset"].",".$params["rec_per_page"];
 	
+	$condition = '';
+	if ($params['vegan'] != 3) {
+		$condition .= " WHERE vegan = ".$params['vegan'];
+	}
+	$sql ="SELECT `food`.`F_ID`,`food`.`name` AS `foodname`,`food`.`price`,`food`.`description`,`food`.`R_ID`,`food`.`images_path`,`food`.`status`,`restaurants`.`name` as `rest_name` from `food` left join `restaurants` on `food`.`R_ID` = `restaurants`.`id` ".$condition." order By `food`.`F_ID` DESC LIMIT ".$params["offset"].",".$params["rec_per_page"];
+	//echo $sql;
+	// print_r($params);
+	 //die;
 	$stmt = $this->dbh->prepare($sql);
 	$stmt->execute();
 	$result = $stmt->fetchAll();

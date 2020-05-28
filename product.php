@@ -37,6 +37,10 @@
             <p class="price"><span>Rs. <?php echo $data['price']; ?></span></p>
             <p> <?php echo $data['description']; ?>
             </p>
+            <?php
+                  if(!isset($_SESSION['restaurant']))
+                  {
+                ?>
             <div class="row mt-4">
               <div class="col-md-6">
                 <div class="form-group d-flex">
@@ -59,6 +63,9 @@
             </div>
              <a href = "javascript:;"><button type="button" style="margin-top:5px; color: black;" data-set = "<?php echo $data['F_ID'] ?>" class="orderNow">Order Now</button></a>
              <a href = "javascript:;"><button class="addToCart" type="button" name="add" data-set = "<?php echo $data['F_ID'] ?>" style="margin-top:5px;margin-left: 40px; color: black;"><?php echo  (isset($_SESSION['cart']) && array_search($data['F_ID'], array_column($_SESSION['cart'], 'f_ID')) !== FALSE) ? "Item Added":"Add to Cart" ?></button></a>
+             <?php
+                }
+            ?> 
           </div>
         </div>
       </div>

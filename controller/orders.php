@@ -12,7 +12,7 @@ if (isset($_SESSION['user']) && !isset($_SESSION['restaurant']))
 
 		$params['rest_id'] = $array['R_ID'];
 		$params['food_id'] = $array['F_ID'];
-		$params['quantity'] = $array[4];
+		$params['quantity'] = $array[6];
 		$params['user_id'] = $_SESSION['user']['id'];
 		$params['order_date'] = date("Y-m-d");
 		$result = $obj->insert_order_details($params);
