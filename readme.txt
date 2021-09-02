@@ -1,4 +1,4 @@
-FOODSHALA Assignment
+FOODSHALA Application
 
 -There will be 2 types of users in this,Customer and restaurant.
 -Different Registration page is there for different users.
